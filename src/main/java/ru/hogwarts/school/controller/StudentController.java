@@ -17,7 +17,7 @@ public class StudentController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity getStudent(@PathVariable Long id){
+    public ResponseEntity<Student> getStudent(@PathVariable Long id){
         Student student = studentService.getStudentById(id);
         if(student == null){
             return ResponseEntity.notFound().build();
@@ -26,7 +26,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity createStudent(@RequestBody Student student){
+    public ResponseEntity<Student> createStudent(@RequestBody Student student){
         Student createdStudent = studentService.createStudent(student);
         return ResponseEntity.ok(createdStudent);
     }
