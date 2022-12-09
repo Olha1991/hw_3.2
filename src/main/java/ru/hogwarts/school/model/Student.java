@@ -11,8 +11,8 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
     private int age;
+    private String name;
 
     public Student(long id, String name, int age) {
         this.id = id;
@@ -24,19 +24,19 @@ public class Student {
 
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) { this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) { this.id = id;
     }
 
     public int getAge() {
@@ -58,6 +58,7 @@ public class Student {
     public int hashCode() {
         return Objects.hash(id, name, age);
     }
+
 
     @Override
     public String toString() {
