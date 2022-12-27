@@ -9,7 +9,7 @@ public class Avatar {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
     private String filePath;
     private long fileSize;
     private String mediaType;
@@ -20,11 +20,11 @@ public class Avatar {
     @OneToOne
     private Student student;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -68,29 +68,4 @@ public class Avatar {
         this.student = student;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Avatar avatar)) return false;
-        return fileSize == avatar.fileSize && id.equals(avatar.id) && filePath.equals(avatar.filePath) && mediaType.equals(avatar.mediaType) && Arrays.equals(data, avatar.data) && student.equals(avatar.student);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(id, filePath, fileSize, mediaType, student);
-        result = 31 * result + Arrays.hashCode(data);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Avatar{" +
-                "id=" + id +
-                ", filePath='" + filePath + '\'' +
-                ", fileSize=" + fileSize +
-                ", mediaType='" + mediaType + '\'' +
-                ", data=" + Arrays.toString(data) +
-                ", student=" + student +
-                '}';
-    }
 }

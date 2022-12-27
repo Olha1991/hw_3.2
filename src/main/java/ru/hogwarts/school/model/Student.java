@@ -51,8 +51,9 @@ public class Student {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Student student)) return false;
-        return id == student.id && age == student.age && name.equals(student.name);
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return age == student.age && Objects.equals(id, student.id) && Objects.equals(name, student.name);
     }
 
     @Override

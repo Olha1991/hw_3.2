@@ -1,6 +1,7 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school.model.AvatarForSQL;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.model.Student;
@@ -46,5 +47,17 @@ public class StudentService {
             return null;
         }
         return student.getFaculty();
+    }
+
+    public int getAllStudents(){
+        return studentRepository.getAllStudents();
+    }
+
+    public double getAverageAgeOfStudents(){
+        return studentRepository.averageAgeOfStudents();
+    }
+
+    public Collection<AvatarForSQL> getLastStudents(int limit){
+        return studentRepository.getLastStudents(limit);
     }
 }
