@@ -3,8 +3,9 @@ package ru.hogwarts.school.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import ru.hogwarts.school.model.AvatarForSQL;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.model.StudentsForSQL;
+
 import java.util.Collection;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
@@ -21,5 +22,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     public double averageAgeOfStudents();
 
     @Query(value = "SELECT * FROM student ORDER BY id DESC LIMIT :limit", nativeQuery = true)
-    public Collection<AvatarForSQL> getLastStudents(@Param("limit") int limit);
+    public Collection<StudentsForSQL> getLastStudents(@Param("limit") int limit);
 }

@@ -3,11 +3,10 @@ package ru.hogwarts.school.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.hogwarts.school.exception.NotFoundException;
 import ru.hogwarts.school.model.Avatar;
-import ru.hogwarts.school.model.AvatarForSQL;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.repository.StudentRepository;
@@ -86,35 +85,17 @@ public class AvatarService {
     private String getExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
-    public int getAllStudents(){
-        return studentService.getAllStudents();
-    }
 
-    public double average_age_of_students(){
-        return studentService.getAverageAgeOfStudents();
-    }
 
-    public Collection<AvatarForSQL> getLastStudents(int limit) {
-        return studentService.getLastStudents(limit);
-    }
 
-    public ResponseEntity<Collection<Avatar>> getFoundByPage(Integer page, Integer size) {
+    public Collection<Avatar> getFoundByPage(Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         Collection<Avatar> avatars = avatarRepository.findAll(pageRequest).getContent();
         if (avatars.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new NotFoundException("Not found");
         }
-        return ResponseEntity.ok(avatars);
+        return avatars;
     }
 
-//    public ResponseEntity<Collection<Avatar>>getFoundByPage(Integer page, Integer size){
-//        logger.info("this method was invoked");
-//        Collection<Avatar> avatarsList = avatarRepository.findByStudentId(pageRequest).getContent();
-//        if (avatarsList.isEmpty()){
-//            logger.info("there is no avatars");
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.ok(avatarsList);
-//    }
 
 }

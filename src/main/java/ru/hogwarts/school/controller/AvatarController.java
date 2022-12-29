@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
-import ru.hogwarts.school.model.AvatarForSQL;
-import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.AvatarService;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,13 +16,13 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
-import java.util.List;
 
 @RestController
 @RequestMapping("avatar")
 public class AvatarController {
 
     private final AvatarService avatarService;
+
 
     public AvatarController(AvatarService avatarService) {
         this.avatarService = avatarService;
@@ -62,26 +60,11 @@ public class AvatarController {
         }
     }
 
-    @GetMapping("/all-students")
-    public ResponseEntity<Integer> getAllStudents(){
-
-        return ResponseEntity.ok(avatarService.getAllStudents());
-    }
-
-    @GetMapping("/average-age-of-students")
-    public ResponseEntity<Double> getAverageAgeOfStudents(){
-        return ResponseEntity.ok(avatarService.average_age_of_students());
-    }
-
-    @GetMapping("/last-students")
-    public ResponseEntity<Collection<AvatarForSQL>> getLastStudents(@RequestParam Integer limit) {
-        return ResponseEntity.ok(avatarService.getLastStudents(limit));
-    }
-
     @GetMapping("/page")
     public ResponseEntity<Collection<Avatar>> findByPage(
             @RequestParam("page") Integer page,
             @RequestParam("size") Integer size) {
-        return avatarService.getFoundByPage(page, size);
+        avatarService.getFoundByPage(page, size);
+        return  ResponseEntity.ok().build();
     }
 }

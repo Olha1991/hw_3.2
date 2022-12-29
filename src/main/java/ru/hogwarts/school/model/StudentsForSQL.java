@@ -1,12 +1,12 @@
 package ru.hogwarts.school.model;
 
-public interface AvatarForSQL {
+public interface StudentsForSQL {
 
     Long getId();
 
     String getName();
 
-    Long getAge();
+    Integer getAge();
 
 
 }

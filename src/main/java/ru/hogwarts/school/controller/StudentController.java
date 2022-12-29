@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.model.StudentsForSQL;
 import ru.hogwarts.school.service.AvatarService;
 import ru.hogwarts.school.service.StudentService;
 import org.springframework.http.HttpHeaders;
@@ -111,5 +112,21 @@ public class StudentController {
             response.setContentLength((int) avatar.getFileSize());
             is.transferTo(os);
         }
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Integer> getAllStudents(){
+
+        return ResponseEntity.ok(studentService.getAllStudents());
+    }
+
+    @GetMapping("/average-age-of-students")
+    public ResponseEntity<Double> getAverageAgeOfStudents(){
+        return ResponseEntity.ok(studentService. getAverageAgeOfStudents());
+    }
+
+    @GetMapping("/last-students")
+    public ResponseEntity<Collection<StudentsForSQL>> getLastStudents(@RequestParam Integer limit) {
+        return ResponseEntity.ok(studentService.getLastStudents(limit));
     }
 }
