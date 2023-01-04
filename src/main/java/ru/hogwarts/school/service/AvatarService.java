@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.hogwarts.school.exception.FileIsTooBigException;
 import ru.hogwarts.school.exception.NotFoundException;
+import ru.hogwarts.school.exception.StudentNotFoundException;
 import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
@@ -28,7 +30,7 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 @Transactional
 public class AvatarService {
     private final int avatarFileSizeLimit = 300;
-    @Value("${students.avatar.dir.path} ")
+    @Value("/avatars")
     private String avatarsDir;
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
@@ -39,7 +41,14 @@ public class AvatarService {
         this.avatarRepository = avatarRepository;
     }
     public void uploadAvatar(long studentId, MultipartFile file) throws IOException{
+        if (file.getSize() > 1024 * avatarFileSizeLimit) {
+            throw new FileIsTooBigException(avatarFileSizeLimit);
+        }
         Student student = studentService.getStudentById(studentId);
+
+        if (student == null) {
+            throw new StudentNotFoundException(studentId);
+        }
 
         Path filePath =Path.of(avatarsDir,studentId + ". " + getExtension(file.getOriginalFilename()));
         Files.createDirectories(filePath.getParent());
