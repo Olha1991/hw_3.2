@@ -1,9 +1,5 @@
 package ru.hogwarts.school;
 
-
-
-
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;

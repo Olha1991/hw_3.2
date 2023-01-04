@@ -1,6 +1,5 @@
 package ru.hogwarts.school.service;
 
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,6 @@ public class AvatarService {
     private String avatarsDir;
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
-
 
     public AvatarService(StudentService studentService, AvatarRepository avatarRepository, StudentRepository studentRepository) {
         this.studentService = studentService;

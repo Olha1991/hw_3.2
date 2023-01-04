@@ -23,7 +23,6 @@ public class AvatarController {
 
     private final AvatarService avatarService;
 
-
     public AvatarController(AvatarService avatarService) {
         this.avatarService = avatarService;
     }

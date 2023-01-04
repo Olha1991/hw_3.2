@@ -32,7 +32,6 @@ public class StudentService {
         studentRepository.deleteById(id);
     }
 
-
     public Collection<Student> getStudentsByAge(int age) {
         return studentRepository.findByAge(age);
     }
