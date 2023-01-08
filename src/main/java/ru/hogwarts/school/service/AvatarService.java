@@ -11,6 +11,8 @@ import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.repository.StudentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,17 +30,21 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 @Service
 @Transactional
 public class AvatarService {
+
+    Logger logger = LoggerFactory.getLogger(AvatarService.class);
     private final int avatarFileSizeLimit = 300;
     @Value("${students.avatar.dir.path}")
     private String avatarsDir;
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
 
-    public AvatarService(StudentService studentService, AvatarRepository avatarRepository, StudentRepository studentRepository) {
+    public AvatarService(StudentService studentService, AvatarRepository avatarRepository) {
+        logger.debug("Requesting constructor AvatarService");
         this.studentService = studentService;
         this.avatarRepository = avatarRepository;
     }
     public void uploadAvatar(long studentId, MultipartFile file) throws IOException{
+        logger.debug("Requesting method uploadAvatar(studentId = {})", studentId);
         if (file.getSize() > 1024 * avatarFileSizeLimit) {
             throw new FileIsTooBigException(avatarFileSizeLimit);
         }
@@ -87,15 +93,18 @@ public class AvatarService {
         }
     }
     public Avatar findAvatar(Long studentId) {
+        logger.debug("Requesting method findAvatar (studentId = {})", studentId);
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
     }
     private String getExtension(String fileName) {
+
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
 
 
     public Collection<Avatar> getFoundByPage(Integer page, Integer size) {
+        logger.debug("Requesting method getFoundByPage (page = {}, size = {})", page, size);
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         Collection<Avatar> avatars = avatarRepository.findAll(pageRequest).getContent();
         if (avatars.isEmpty()) {
