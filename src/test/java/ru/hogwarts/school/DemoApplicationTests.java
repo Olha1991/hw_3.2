@@ -16,6 +16,7 @@ import ru.hogwarts.school.controller.StudentController;
 import ru.hogwarts.school.model.Student;
 
 import java.util.Collection;
+
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DemoApplicationTests {
