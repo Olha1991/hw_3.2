@@ -73,7 +73,7 @@ public class StudentController {
         return ResponseEntity.ok(studentService.findByAgeBetween(min, max));
     }
 
-    @GetMapping("/faculty/{id}") // GET http://localhost:8080/student/faculty/5
+    @GetMapping("/faculty/{id}")
     public ResponseEntity<Faculty> getStudentFaculty(@PathVariable Long id) {
         return ResponseEntity.ok(studentService.getStudentFaculty(id));
     }
