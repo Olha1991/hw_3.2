@@ -29,7 +29,7 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 @Transactional
 public class AvatarService {
     private final int avatarFileSizeLimit = 300;
-    @Value("/avatars")
+    @Value("${students.avatar.dir.path}")
     private String avatarsDir;
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
