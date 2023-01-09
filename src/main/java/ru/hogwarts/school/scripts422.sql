@@ -1,8 +1,9 @@
 CREATE TABLE persons
 (
+    id SERIAL PRIMARY KEY,
     name   VARCHAR,
     age    INTEGER,
-    id     BOOLEAN DEFAULT 0,
+    id_driver_license INTEGER DEFAULT 0,
     car_id INTEGER REFERENCES cars (id)
 );
 
