@@ -93,5 +93,60 @@ public class StudentService {
                 .orElse(Double.NaN);
     }
 
+    public void namesFromThreads(){
+        List<String> names = studentRepository.findAll().stream()
+                .map(user -> user.getName())
+                .collect(Collectors.toList());
 
+//        List<String> names = studentRepository.findAll().stream()
+//                .map(Student::getName).
+//                toList();
+
+        printNames(names.get(0));
+        printNames(names.get(1));
+
+        new Thread(()->{
+            printNames(names.get(2));
+            printNames(names.get(3));
+        }).start();
+
+        new Thread(()->{
+            printNames(names.get(4));
+            printNames(names.get(5));
+        }).start();
+
+    }
+
+    public void printNames(String id){
+        System.out.println("Name - " + id);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void synchronizedNames(){
+        List<String> names = studentRepository.findAll().stream()
+                .map(Student::getName).toList();
+
+        printSynchronizedNames(names);
+        printSynchronizedNames(names);
+
+        new Thread(()->{
+            printSynchronizedNames(names);
+            printSynchronizedNames(names);
+        }).start();
+
+        new Thread(()->{
+            printSynchronizedNames(names);
+            printSynchronizedNames(names);
+        }).start();
+    }
+
+    public Integer threadCounter = 0;
+    private synchronized void printSynchronizedNames(List<String> names) {
+        System.out.println("Name - " + names.get(threadCounter) + " - " + threadCounter);
+        threadCounter++;
+    }
 }
