@@ -20,6 +20,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -128,5 +129,25 @@ public class StudentController {
     @GetMapping("/last-students")
     public ResponseEntity<Collection<StudentsForSQL>> getLastStudents(@RequestParam Integer limit) {
         return ResponseEntity.ok(studentService.getLastStudents(limit));
+    }
+
+    @GetMapping("/name-starts")
+    public ResponseEntity<List<String>> getStudentsByNameStartsWith() {
+        return ResponseEntity.ok(studentService.getStudentsByNameStartsWithLetter());
+    }
+
+    @GetMapping("/average-age-of-students-stream")
+    public ResponseEntity<Double> getAverageAgeOfStudentsStream(){
+        return ResponseEntity.ok(studentService.getAverageAgeOfStudentsStream());
+    }
+
+    @GetMapping("/names-threads")
+    public void namesFromThreads (){
+        studentService.namesFromThreads();
+    }
+
+    @GetMapping("/names-threads-synchronized")
+    public void synchronizedNames (){
+        studentService.synchronizedNames();
     }
 }
